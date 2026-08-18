@@ -32,7 +32,7 @@ $canvas-offset: "0px, 0px";
   top: 0;
   left: 0;
   transform-origin: 0 0;
-  transform: translate(--canvas-offset), scale(var(--canvas-zoom));
+  transform: translate(var(--canvas-offset)), scale(var(--canvas-zoom));
 }
 
 .canvas-nodes {
