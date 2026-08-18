@@ -229,6 +229,7 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
+        console.log("allFiles", allFiles);
         console.log("slug", slug);
         html = convertWikiLinks(html, slug);
       }
