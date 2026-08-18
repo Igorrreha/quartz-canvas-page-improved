@@ -56,7 +56,7 @@
 .canvas-node-content {
   padding: 12px;
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 0;
   color: var(--darkgray);
   word-wrap: break-word;
   overflow-y: auto;
@@ -252,8 +252,8 @@
 }
 
 .canvas-node-group {
-  background: transparent;
-  border-style: dashed;
+  background: rbga(var(--gray), 0.05);
+  border-style: solid;
   border-color: var(--canvas-node-color, var(--gray));
   border-radius: 12px;
   overflow: visible;
