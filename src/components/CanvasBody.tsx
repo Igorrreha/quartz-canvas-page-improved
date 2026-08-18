@@ -190,7 +190,6 @@ function wikilinkToHref(
     return wikiLinkText === file.frontmatter?.title;
   });
 
-  console.log("targetFile:", targetFile);
   if (targetFile) {
     const urlPath = targetFile.slug!;
     const href = joinSegments(pathToRoot(urlPath), urlPath);
@@ -204,7 +203,6 @@ function convertWikiLinks(
   allFiles: QuartzPluginData[]
 ): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
-    console.log("processing link:", linkText);
     const fileSlug = wikilinkToHref(linkText, allFiles);
     return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
   });
@@ -238,7 +236,6 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
-        //console.log("allFiles", allFiles);
         html = convertWikiLinks(html, allFiles);
       }
 
