@@ -14,6 +14,9 @@ function initCanvas() {
     const minZoom = parseFloat(container.dataset.minZoom ?? "") || 0.1;
     const maxZoom = parseFloat(container.dataset.maxZoom ?? "") || 5;
     let zoom = parseFloat(container.dataset.initialZoom ?? "") || 1;
+
+    document.documentElement.style.setProperty(`--canvas-zoom`, String(zoom));
+
     let panX = 0;
     let panY = 0;
     let isPanning = false;
@@ -21,7 +24,8 @@ function initCanvas() {
     let startY = 0;
 
     const applyTransform = () => {
-      viewport.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+      document.documentElement.style.setProperty(`--canvas-zoom`, String(zoom));
+      document.documentElement.style.setProperty(`--canvas-offset`, `${panX}px, ${panY}px`);
     };
 
     const centerViewport = () => {
