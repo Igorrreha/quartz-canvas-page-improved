@@ -195,6 +195,7 @@ function convertWikiLinks(
   slug: FullSlug
 ): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
+    console.log("processing link:", linkText);
     const fileSlug = wikilinkToHref(linkText, slug);
     return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
   });
@@ -228,6 +229,7 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
+        console.log("slug", slug);
         html = convertWikiLinks(html, slug);
       }
 
