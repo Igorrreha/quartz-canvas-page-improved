@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type {
   QuartzComponent,
   QuartzComponentProps,
@@ -10,6 +9,7 @@ import type {
 import {
   resolveRelative,
   slugifyFilePath,
+  simplifySlug,
   normalizeHastElement,
   transformLink,
   transformInternalLink,
@@ -182,20 +182,28 @@ export function resolveEmbeddedHtml(
 
 function wikilinkToHref(
   wikiLinkText: string, 
-  currentFileSlug: FullSlug
+  allFiles: QuartzPluginData[]
 ): string {
-  const result = transformInternalLink(wikiLinkText);
-  console.log(result);
-  return result ?? wikiLinkText;
+  const targetFile = allFiles.find((file) => {
+    return simplifySlug(file.slug as FullSlug) === simplifySlug(wikiLinkText as FullSlug)
+  })
+
+  if (targetFile) {
+    //const fullFilePath = targetFile.filePath
+    const urlPath = targetFile.slug
+    console.log(urlPath);
+    return urlPath ?? wikiLinkText;
+  }
+  return wikiLinkText;
 }
 
 function convertWikiLinks(
   str: string,
-  slug: FullSlug
+  allFiles: QuartzPluginData[]
 ): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
     console.log("processing link:", linkText);
-    const fileSlug = wikilinkToHref(linkText, slug);
+    const fileSlug = wikilinkToHref(linkText, allFiles);
     return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
   });
 }
@@ -228,7 +236,7 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
-        html = convertWikiLinks(html, slug);
+        html = convertWikiLinks(html, allFiles);
       }
 
       return (
