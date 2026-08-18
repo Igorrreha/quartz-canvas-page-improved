@@ -183,8 +183,8 @@ function wikilinkToHref(
   wikiLinkText: string, 
   currentFileSlug: FullSlug
 ): string {
-  const result = transformLink(currentFileSlug, wikiLinkText, {
-    strategy: "shortest",
+  const result = transformLink("index", wikiLinkText, {
+    strategy: "absolute",
   });
   console.log(result);
   return result ?? wikiLinkText;
