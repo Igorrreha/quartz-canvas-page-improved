@@ -202,9 +202,10 @@ function renderNode(
 
   switch (node.type) {
     case "text": {
-      const html = renderedTexts[node.id];
+      let html = renderedTexts[node.id];
       if (html) {
         html = html.replaceAll('>\n<', '><');
+
       }
 
       return (
