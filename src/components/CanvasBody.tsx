@@ -183,12 +183,17 @@ function wikilinkToHref(
   wikiLinkText: string, 
   currentFileSlug: FullSlug
 ): string {
-  return transformLink(currentFileSlug, wikiLinkText, {
+  const result = transformLink(currentFileSlug, wikiLinkText, {
     strategy: "shortest",
-  })
+  });
+  console.log(result);
+  return result ?? wikiLinkText;
 }
 
-function convertWikiLinks(str: string, slug: FullSlug): string {
+function convertWikiLinks(
+  str: string,
+  slug: FullSlug
+): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
     const fileSlug = wikilinkToHref(linkText, slug);
     return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
