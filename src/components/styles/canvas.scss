@@ -253,7 +253,7 @@
 }
 
 .canvas-node-group {
-  background: rbga(var(--gray), 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-style: solid;
   border-color: var(--canvas-node-color, var(--gray));
   border-radius: 12px;
