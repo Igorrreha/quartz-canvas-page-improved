@@ -204,8 +204,7 @@ function renderNode(
     case "text": {
       const html = renderedTexts[node.id];
       if (html) {
-        console.log("canvas html:");
-        console.log(html);
+        html = html.replaceAll('>\n<', '><');
       }
 
       return (
