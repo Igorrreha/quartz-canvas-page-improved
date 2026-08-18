@@ -178,6 +178,14 @@ export function resolveEmbeddedHtml(
   return toHtml(rebased as Parameters<typeof toHtml>[0], { allowDangerousHtml: true });
 }
 
+function convertWikiLinks(str: string, allFiles: QuartzPluginData[]): string {
+  return str.replace(/\[\[([^|]+)\|([^\]]+)\]\]/g, (_, linkText, alias) => {
+    const page = findPage(linkText, allFiles);
+    console.log(page?.filePath);
+    return `<a href="${linkText}">${alias}</a>`;
+  });
+}
+
 function renderNode(
   node: CanvasNode,
   renderedTexts: Record<string, string>,
@@ -203,9 +211,10 @@ function renderNode(
   switch (node.type) {
     case "text": {
       let html = renderedTexts[node.id];
+
       if (html) {
         html = html.replaceAll('>\n<', '><');
-
+        html = convertWikiLinks(html, allFiles);
       }
 
       return (
