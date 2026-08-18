@@ -13,6 +13,8 @@ import {
   normalizeHastElement,
   transformLink,
   transformInternalLink,
+  joinSegments,
+  pathToRoot,
 } from "@quartz-community/utils/path";
 import { toHtml } from "hast-util-to-html";
 import type { Element as HastElement, Root as HastRoot } from "hast";
@@ -190,10 +192,9 @@ function wikilinkToHref(
 
   console.log("targetFile:", targetFile);
   if (targetFile) {
-    //const fullFilePath = targetFile.filePath
-    const urlPath = targetFile.slug;
-    console.log(urlPath);
-    return urlPath ?? wikiLinkText;
+    const urlPath = targetFile.slug!;
+    const href = joinSegments(pathToRoot(urlPath), urlPath);
+    return href ?? wikiLinkText;
   }
   return wikiLinkText;
 }
