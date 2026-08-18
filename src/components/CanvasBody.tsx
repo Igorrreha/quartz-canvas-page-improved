@@ -184,11 +184,11 @@ function wikilinkToHref(
   wikiLinkText: string, 
   allFiles: QuartzPluginData[]
 ): string {
-  const linkSlug = simplifySlug(wikiLinkText as FullSlug);
+  const linkSlug = slugifyFilePath(wikiLinkText as FilePath) as String;
   console.log("link slug:", linkSlug);
   const targetFile = allFiles.find((file) => {
     const fileSlug = simplifySlug(file.slug as FullSlug);
-    console.log("file slug", fileSlug);
+    //console.log("file slug", fileSlug);
     return fileSlug === linkSlug;
   });
 
@@ -241,6 +241,7 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
+        console.log("allFiles", allFiles);
         html = convertWikiLinks(html, allFiles);
       }
 
