@@ -262,7 +262,7 @@
 
   .canvas-group-label {
     position: absolute;
-    top: max(-10px, calc(-10px / var(--canvas-zoom)));
+    top: min(-10px, calc(-10px / var(--canvas-zoom)));
     left: 16px;
     padding: 0 8px;
     background: var(--light);
