@@ -180,9 +180,8 @@ export function resolveEmbeddedHtml(
 
 function convertWikiLinks(str: string, allFiles: QuartzPluginData[]): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
-    const page = findPage(linkText, allFiles);
-    console.log(linkText, page?.filePath);
-    return `<a href="${linkText}">${alias ?? linkText}</a>`;
+    const fileSlug = slugifyFilePath(linkText);
+    return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
   });
 }
 
