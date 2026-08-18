@@ -11,6 +11,7 @@ import {
   resolveRelative,
   slugifyFilePath,
   normalizeHastElement,
+  transformLink,
 } from "@quartz-community/utils/path";
 import { toHtml } from "hast-util-to-html";
 import type { Element as HastElement, Root as HastRoot } from "hast";
@@ -178,9 +179,18 @@ export function resolveEmbeddedHtml(
   return toHtml(rebased as Parameters<typeof toHtml>[0], { allowDangerousHtml: true });
 }
 
-function convertWikiLinks(str: string, allFiles: QuartzPluginData[]): string {
+function wikilinkToHref(
+  wikiLinkText: string, 
+  currentFileSlug: FullSlug
+): string {
+  return transformLink(currentFileSlug, wikiLinkText, {
+    strategy: "shortest",
+  })
+}
+
+function convertWikiLinks(str: string, slug: FullSlug): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
-    const fileSlug = slugifyFilePath(linkText);
+    const fileSlug = wikilinkToHref(linkText, slug);
     return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
   });
 }
@@ -213,7 +223,7 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
-        html = convertWikiLinks(html, allFiles);
+        html = convertWikiLinks(html, slug);
       }
 
       return (
