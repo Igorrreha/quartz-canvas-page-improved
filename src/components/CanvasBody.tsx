@@ -184,8 +184,12 @@ function wikilinkToHref(
   wikiLinkText: string, 
   allFiles: QuartzPluginData[]
 ): string {
+  const linkSlug = simplifySlug(wikiLinkText as FullSlug);
+  console.log("link slug:", linkSlug);
   const targetFile = allFiles.find((file) => {
-    return simplifySlug(file.slug as FullSlug) === simplifySlug(wikiLinkText as FullSlug);
+    const fileSlug = simplifySlug(file.slug as FullSlug);
+    console.log("file slug", fileSlug);
+    return fileSlug === linkSlug;
   });
 
   console.log("targetFile:", targetFile);
