@@ -12,6 +12,7 @@ import {
   slugifyFilePath,
   normalizeHastElement,
   transformLink,
+  transformInternalLink,
 } from "@quartz-community/utils/path";
 import { toHtml } from "hast-util-to-html";
 import type { Element as HastElement, Root as HastRoot } from "hast";
@@ -183,9 +184,7 @@ function wikilinkToHref(
   wikiLinkText: string, 
   currentFileSlug: FullSlug
 ): string {
-  const result = transformLink("index", wikiLinkText, {
-    strategy: "absolute",
-  });
+  const result = transformInternalLink(wikiLinkText);
   console.log(result);
   return result ?? wikiLinkText;
 }
@@ -229,8 +228,6 @@ function renderNode(
 
       if (html) {
         html = html.replaceAll('>\n<', '><');
-        console.log("allFiles", allFiles);
-        console.log("slug", slug);
         html = convertWikiLinks(html, slug);
       }
 
