@@ -1,5 +1,5 @@
 {
-  "name": "@quartz-community/canvas-page",
+  "name": "github:Igorrreha/quartz-canvas-page-improved",
   "version": "0.1.0",
   "description": "JSON Canvas (Obsidian .canvas) page type plugin for Quartz v5. Renders interactive canvas visualizations with nodes and edges.",
   "type": "module",
@@ -8,7 +8,7 @@
   "homepage": "https://quartz.jzhao.xyz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/quartz-community/canvas-page"
+    "url": "https://github.com/Igorrreha/quartz-canvas-page-improved"
   },
   "keywords": [
     "quartz",
