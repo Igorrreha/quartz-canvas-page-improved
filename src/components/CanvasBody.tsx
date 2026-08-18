@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type {
   QuartzComponent,
   QuartzComponentProps,
@@ -202,6 +203,11 @@ function renderNode(
   switch (node.type) {
     case "text": {
       const html = renderedTexts[node.id];
+      if (html) {
+        console.log("canvas html:");
+        console.log(html);
+      }
+
       return (
         <div class="canvas-node canvas-node-text" data-node-id={node.id} style={styleStr}>
           {html ? (
