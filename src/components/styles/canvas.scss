@@ -257,12 +257,12 @@
   border-style: solid;
   border-color: var(--canvas-node-color, var(--gray));
   border-radius: 12px;
-  border-width: max(1px, calc(1px / --canvas-zoom));
+  border-width: max(1px, calc(1px / var(--canvas-zoom)));
   overflow: visible;
 
   .canvas-group-label {
     position: absolute;
-    top: -10px;
+    top: max(-10px, calc(-10px / var(--canvas-zoom)));
     left: 16px;
     padding: 0 8px;
     background: var(--light);
