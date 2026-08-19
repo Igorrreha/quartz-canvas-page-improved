@@ -204,7 +204,7 @@ function convertWikiLinks(
 ): string {
   return str.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g, (_, linkText, alias) => {
     const fileSlug = wikilinkToHref(linkText, allFiles);
-    return `<a href="${fileSlug}">${alias ?? linkText}</a>`;
+    return `<a href="${fileSlug}" target="_blank" rel="noopener noreferrer">${alias ?? linkText}</a>`;
   });
 }
 
